@@ -5,9 +5,13 @@ import time
 import pandas as pd
 
 
-#Define constants
+#Define the constants
 #Base URL for subreddit you want to scrape
 BASE_URL = "https://www.reddit.com/r/technology/controversial/"
+#The number of threads
+NumberOfThreads = 50
+
+#Don't touch.
 count = 0
 posts = []
 lastpost =""
@@ -15,7 +19,6 @@ lastpost =""
 #Create a data frame from data and writes to csv
 def pandaDataFrama():
     df = pd.DataFrame(posts,columns=["title","votes","author","url","timestamp","domain","text"])
-
     df.to_csv("pandaData.csv")
 
 
@@ -102,10 +105,10 @@ def getPostLinks(section_url,amount,lastpost="",count=0):
         getPostLinks(newurl,amount,lastpost,count)
 
 
-def scrapeReddit(amount):
-    getPostLinks(BASE_URL, amount)
+def scrapeReddit():
+    getPostLinks(BASE_URL, NumberOfThreads)
     pandaDataFrama()
 
 
 #call this function with amount of posts you want.
-scrapeReddit(50)
+scrapeReddit()
